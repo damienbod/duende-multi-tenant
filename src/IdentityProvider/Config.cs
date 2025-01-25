@@ -13,6 +13,7 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
     [
         new ApiScope("shopclientscope"),
+        new ApiScope("adminclientscope"),
     ];
 
     public static IEnumerable<Client> Clients(string shopClientUIUrl, string adminClientUIUrl) =>

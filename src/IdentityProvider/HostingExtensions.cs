@@ -89,13 +89,15 @@ internal static class HostingExtensions
                   return SecurityHeadersDefinitionsWeakened.GetHeaderPolicyCollection(
                       builder.Environment.IsDevelopment(),
                       builder.Configuration["AzureAd:Instance"],
-                      builder.Configuration["ShopClientUIUrl"]!);
+                      builder.Configuration["ShopClientUIUrl"]!,
+                      builder.Configuration["AdminClientUIUrl"]!);
               }
 
               return SecurityHeadersDefinitions.GetHeaderPolicyCollection(
                   builder.Environment.IsDevelopment(),
                   builder.Configuration["AzureAd:Instance"],
-                  builder.Configuration["ShopClientUIUrl"]!);
+                  builder.Configuration["ShopClientUIUrl"]!,
+                  builder.Configuration["AdminClientUIUrl"]!);
           });
 
         return builder.Build();

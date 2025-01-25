@@ -17,7 +17,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.Scope.Add("profile");
-    options.Scope.Add("shopclientscope");
+    options.Scope.Add("adminclientscope");
     options.Scope.Add("offline_access");
 
     var oidcConfig = builder.Configuration.GetSection("OpenIDConnectSettings");
