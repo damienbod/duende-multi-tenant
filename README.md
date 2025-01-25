@@ -9,3 +9,7 @@ Add-Migration "init_identity_new"
 ```
 Update-Database
 ```
+
+## Links
+
+https://docs.duendesoftware.com/identityserver/v7
