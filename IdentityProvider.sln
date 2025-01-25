@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminClientUI", "src\AdminClientUI\AdminClientUI.csproj", "{AEB8F267-6BAB-4D44-ADB6-49EFC79F632E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{DDF6AFB5-8755-4BF6-8FF0-62B1F4F11511}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDF6AFB5-8755-4BF6-8FF0-62B1F4F11511}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDF6AFB5-8755-4BF6-8FF0-62B1F4F11511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB8F267-6BAB-4D44-ADB6-49EFC79F632E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB8F267-6BAB-4D44-ADB6-49EFC79F632E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB8F267-6BAB-4D44-ADB6-49EFC79F632E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB8F267-6BAB-4D44-ADB6-49EFC79F632E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
