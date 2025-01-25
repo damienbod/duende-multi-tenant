@@ -30,6 +30,7 @@ internal static class HostingExtensions
             .AddDefaultTokenProviders();
 
         var shopclientUIUrl = builder.Configuration["ShopClientUIUrl"];
+        var adminclientUIUrl = builder.Configuration["AdminClientUIUrl"];
         builder.Services
             .AddIdentityServer(options =>
             {
@@ -43,7 +44,7 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients(shopclientUIUrl!))
+            .AddInMemoryClients(Config.Clients(shopclientUIUrl!, adminclientUIUrl!))
             .AddAspNetIdentity<ApplicationUser>();
 
         builder.Services.AddDistributedMemoryCache();

@@ -15,7 +15,7 @@ public static class Config
         new ApiScope("shopclientscope"),
     ];
 
-    public static IEnumerable<Client> Clients(string shopClientUIUrl) =>
+    public static IEnumerable<Client> Clients(string shopClientUIUrl, string adminClientUIUrl) =>
     [
         // ShopClientUI application interactive client using code flow + pkce
         new Client
@@ -31,6 +31,21 @@ public static class Config
 
             AllowOfflineAccess = true,
             AllowedScopes = { "openid", "profile", "shopclientscope" }
+        },
+        // AdminClientUI application interactive client using code flow + pkce
+        new Client
+        {
+            ClientId = "admin-client-ui",
+            ClientSecrets = { new Secret("48C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+
+            AllowedGrantTypes = GrantTypes.Code,
+
+            RedirectUris = { $"{adminClientUIUrl}/signin-oidc" },
+            FrontChannelLogoutUri = $"{adminClientUIUrl}/signout-oidc",
+            PostLogoutRedirectUris = { $"{adminClientUIUrl}/signout-callback-oidc" },
+
+            AllowOfflineAccess = true,
+            AllowedScopes = { "openid", "profile", "adminclientscope" }
         },
     ];
 }
