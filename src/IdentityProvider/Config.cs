@@ -31,7 +31,9 @@ public static class Config
             PostLogoutRedirectUris = { $"{shopClientUIUrl}/signout-callback-oidc" },
 
             AllowOfflineAccess = true,
-            AllowedScopes = { "openid", "profile", "shopclientscope" }
+            AllowedScopes = { "openid", "profile", "shopclientscope" },
+
+            EnableLocalLogin = false
         },
         // AdminClientUI application interactive client using code flow + pkce
         new Client
