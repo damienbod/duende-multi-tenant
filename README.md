@@ -15,3 +15,5 @@ Update-Database
 https://docs.duendesoftware.com/identityserver/v7
 
 https://docs.duendesoftware.com/identityserver/v7/ui/federation/
+
+https://learn.microsoft.com/en-us/aspnet/core/razor-pages
