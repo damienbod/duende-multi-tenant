@@ -46,8 +46,9 @@ public static class Config
             PostLogoutRedirectUris = { $"{adminClientUIUrl}/signout-callback-oidc" },
 
             AllowOfflineAccess = true,
-            AllowedScopes = { "openid", "profile", "adminclientscope" }, 
+            AllowedScopes = { "openid", "profile", "adminclientscope" },
 
+            IdentityProviderRestrictions = ["AdminEntraID"]
         },
     ];
 }
