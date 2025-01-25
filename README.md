@@ -13,3 +13,5 @@ Update-Database
 ## Links
 
 https://docs.duendesoftware.com/identityserver/v7
+
+https://docs.duendesoftware.com/identityserver/v7/ui/federation/
