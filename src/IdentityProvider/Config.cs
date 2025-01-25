@@ -47,10 +47,7 @@ public static class Config
 
             AllowOfflineAccess = true,
             AllowedScopes = { "openid", "profile", "adminclientscope" }, 
-            
-            IdentityProviderRestrictions = ["Entra ID", "entraidcookie"]
 
-            
         },
     ];
 }
