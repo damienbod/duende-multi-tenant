@@ -56,11 +56,6 @@ public class ShopClient : PageModel
             return RedirectToPage("/ExternalLogin/Challenge", new { scheme = View.ExternalLoginScheme, returnUrl });
         }
 
-        if (View.UseShopClientDisplay)
-        {
-            return Page();
-        }
-           
         return Page();
     }
 
@@ -170,11 +165,6 @@ public class ShopClient : PageModel
         };
 
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-        if (context?.Client.ClientId == "shop-client-ui")
-        {
-            View.UseShopClientDisplay = true;
-            return;
-        }
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
             var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
@@ -230,7 +220,8 @@ public class ShopClient : PageModel
         {
             AllowRememberLogin = LoginOptions.AllowRememberLogin,
             EnableLocalLogin = allowLocal && LoginOptions.AllowLocalLogin,
-            ExternalProviders = providers.ToArray()
+            ExternalProviders = providers.ToArray(),
+            UseShopClientDisplay = true
         };
     }
 }

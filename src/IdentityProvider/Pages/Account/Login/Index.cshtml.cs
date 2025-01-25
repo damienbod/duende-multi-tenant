@@ -58,7 +58,7 @@ public class Index : PageModel
 
         if (View.UseShopClientDisplay)
         {
-            return RedirectToPage("ShopClient");
+            return RedirectToPage("ShopClient", new { returnUrl });
         }
            
         return Page();
