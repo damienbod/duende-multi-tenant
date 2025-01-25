@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace IdentityProvider.Pages.Login;
 
 [AllowAnonymous]
-public class Index : PageModel
+public class ShopClient : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
@@ -30,7 +30,7 @@ public class Index : PageModel
     [BindProperty]
     public InputModel Input { get; set; } = default!;
 
-    public Index(
+    public ShopClient(
         IIdentityServerInteractionService interaction,
         IAuthenticationSchemeProvider schemeProvider,
         IIdentityProviderStore identityProviderStore,
@@ -58,7 +58,7 @@ public class Index : PageModel
 
         if (View.UseShopClientDisplay)
         {
-            return RedirectToPage("ShopClient");
+            return Page();
         }
            
         return Page();
@@ -172,15 +172,9 @@ public class Index : PageModel
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
         if (context?.Client.ClientId == "shop-client-ui")
         {
-            View = new ViewModel
-            {
-                UseShopClientDisplay = true
-            };
-            
-            // Process in the shop client login
+            View.UseShopClientDisplay = true;
             return;
         }
-
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
             var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
