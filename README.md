@@ -1,5 +1,7 @@
 # duende-multi-tenant
 
+![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
+
 ## Database
 
 ```
