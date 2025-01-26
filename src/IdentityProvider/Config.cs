@@ -33,7 +33,8 @@ public static class Config
             AllowOfflineAccess = true,
             AllowedScopes = { "openid", "profile", "shopclientscope" },
 
-            EnableLocalLogin = false
+            EnableLocalLogin = false,
+            //IdentityProviderRestrictions = ["EntraID"]
         },
         // AdminClientUI application interactive client using code flow + pkce
         new Client
