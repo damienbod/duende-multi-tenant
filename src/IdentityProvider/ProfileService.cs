@@ -1,29 +1,12 @@
 ﻿using Duende.IdentityModel;
-using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Services;
-using OAuthGrantExchangeIntegration.Server;
+using System.Net.Mail;
 using System.Security.Claims;
 
 namespace IdentityProvider;
 
-public class ProfileService : IProfileService
+public class ProfileService
 {
-    public Task GetProfileDataAsync(ProfileDataRequestContext context)
-    {
-        // add actor claim if needed
-        if (context.Subject.GetAuthenticationMethod() == OidcConstants.GrantTypes.TokenExchange)
-        {
-            var act = context.Subject.FindFirst(JwtClaimTypes.Actor);
-            if (act != null)
-            {
-                context.IssuedClaims.Add(act);
-            }
-        }
-
-        return Task.CompletedTask;
-    }
-
     public Task IsActiveAsync(IsActiveContext context)
     {
         context.IsActive = true;
@@ -77,16 +60,38 @@ public class ProfileService : IProfileService
         }
 
         email = claims.FirstOrDefault(t => t.Type == "preferred_username");
-        
+
         if (email != null)
         {
-            var isNameAndEmail = ValidateOauthTokenExchangeRequestPayload.IsEmailValid(email.Value);
-            if(isNameAndEmail)
+            var isNameAndEmail = IsEmailValid(email.Value);
+            if (isNameAndEmail)
             {
                 return email.Value;
             }
         }
 
         return null;
+    }
+
+    public static bool IsEmailValid(string email)
+    {
+        if (!MailAddress.TryCreate(email, out var mailAddress))
+            return false;
+
+        // And if you want to be more strict:
+        var hostParts = mailAddress.Host.Split('.');
+        if (hostParts.Length == 1)
+            return false; // No dot.
+        if (hostParts.Any(p => p == string.Empty))
+            return false; // Double dot.
+        if (hostParts[^1].Length < 2)
+            return false; // TLD only one letter.
+
+        if (mailAddress.User.Contains(' '))
+            return false;
+        if (mailAddress.User.Split('.').Any(p => p == string.Empty))
+            return false; // Double dot or dot at end of user part.
+
+        return true;
     }
 }
