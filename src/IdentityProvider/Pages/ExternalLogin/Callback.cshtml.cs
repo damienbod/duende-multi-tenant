@@ -1,11 +1,11 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-using IdentityProvider.Models;
-using IdentityProvider.Services;
+using Duende.IdentityModel;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
-using Duende.IdentityModel;
+using IdentityProvider.Models;
+using IdentityProvider.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -125,20 +125,32 @@ public class Callback : PageModel
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "<Pending>")]
     private async Task<ApplicationUser> AutoProvisionUserAsync(string provider, string providerUserId, IEnumerable<Claim> claims, string photo)
     {
-        var sub = Guid.NewGuid().ToString();
+        var sub = ProfileService.GetOid(claims);
+        if (sub == null)
+        {
+            sub = Guid.NewGuid();
+        }
 
         var user = new ApplicationUser
         {
-            Id = sub,
-            UserName = sub, // don't need a username, since the user will be using an external provider to login
+            Id = sub.ToString()!,
+            UserName = sub.ToString(),
+            EntraIdOid = sub
         };
 
         // email
-        var email = claims.FirstOrDefault(x => x.Type == JwtClaimTypes.Email)?.Value ??
-                    claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+        var email = ProfileService.GetEmail(claims);
         if (email != null)
         {
             user.Email = email;
+            user.UserName = email;
+        }
+
+        // tid
+        var tid = ProfileService.GetUserTenantId(claims);
+        if (tid != null)
+        {
+            user.TenantId = tid;
         }
 
         // create a list of claims that we want to transfer into our store
@@ -209,7 +221,7 @@ public class Callback : PageModel
         var idToken = externalResult.Properties?.GetTokenValue("id_token");
         if (idToken != null)
         {
-            localSignInProps.StoreTokens(new[] { new AuthenticationToken { Name = "id_token", Value = idToken } });
+            localSignInProps.StoreTokens([new AuthenticationToken { Name = "id_token", Value = idToken }]);
         }
     }
 }

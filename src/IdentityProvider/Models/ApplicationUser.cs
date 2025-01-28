@@ -10,4 +10,8 @@ namespace IdentityProvider.Models;
 public class ApplicationUser : IdentityUser
 {
     public string Photo { get; set; } = string.Empty;
+
+    public Guid? EntraIdOid { get; set; }
+
+    public Guid? TenantId { get; set; }
 }
