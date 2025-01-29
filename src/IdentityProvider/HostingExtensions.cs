@@ -71,7 +71,7 @@ internal static class HostingExtensions
         builder.Services.AddAuthentication()
             .AddMicrosoftIdentityWebApp(options =>
             {
-                builder.Configuration.Bind("AzureAd", options);
+                builder.Configuration.Bind("EntraIDAdmin", options);
                 options.SignInScheme = "adminentraidcookie";
                 options.UsePkce = true;
                 options.Events = new OpenIdConnectEvents
