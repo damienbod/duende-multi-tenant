@@ -1,4 +1,6 @@
-# duende-multi-tenant
+# Duende IdentityServer multi-tenant setup
+
+![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
 ## Database
 
@@ -15,3 +17,5 @@ Update-Database
 https://docs.duendesoftware.com/identityserver/v7
 
 https://docs.duendesoftware.com/identityserver/v7/ui/federation/
+
+https://learn.microsoft.com/en-us/aspnet/core/razor-pages

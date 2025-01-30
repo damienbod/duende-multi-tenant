@@ -1,11 +1,11 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-using IdentityProvider.Models;
-using IdentityProvider.Services;
+using Duende.IdentityModel;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
-using Duende.IdentityModel;
+using IdentityProvider.Models;
+using IdentityProvider.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -49,9 +49,13 @@ public class Callback : PageModel
 
         if (result.Succeeded != true)
         {
-            throw new InvalidOperationException($"External authentication error: {result.Failure}");
+            result = await HttpContext.AuthenticateAsync("adminentraidcookie");
         }
 
+        if (result.Succeeded != true)
+        {
+            throw new InvalidOperationException($"External authentication error: {result.Failure}");
+        }
         var externalUser = result.Principal ??
             throw new InvalidOperationException("External authentication produced a null Principal");
 
@@ -77,15 +81,30 @@ public class Callback : PageModel
 
         if (user == null)
         {
-            var photo = string.Empty;
-            if (provider == "EntraID")
+            var oid = ProfileService.GetOid(externalUser.Claims);
+            user = await _userManager.FindByIdAsync(oid.ToString()!);
+            if (user != null)
             {
-                photo = await _msGraphDelegatedService.GetPhotoAsync(externalUser);
+                var identityResult = await _userManager
+                    .AddLoginAsync(user, new UserLoginInfo(provider, providerUserId, provider));
+
+                if (!identityResult.Succeeded)
+                {
+                    throw new InvalidOperationException(identityResult.Errors.First().Description);
+                }
             }
-            // this might be where you might initiate a custom workflow for user registration
-            // in this sample we don't show how that would be done, as our sample implementation
-            // simply auto-provisions new external user
-            user = await AutoProvisionUserAsync(provider, providerUserId, externalUser.Claims, photo);
+            else
+            {
+                var photo = string.Empty;
+                if (provider == "EntraID" || provider == "AdminEntraID")
+                {
+                    photo = await _msGraphDelegatedService.GetPhotoAsync(externalUser);
+                }
+                // this might be where you might initiate a custom workflow for user registration
+                // in this sample we don't show how that would be done, as our sample implementation
+                // simply auto-provisions new external user
+                user = await AutoProvisionUserAsync(provider, providerUserId, externalUser.Claims, photo);
+            }
         }
 
         // this allows us to collect any additional claims or properties
@@ -100,6 +119,7 @@ public class Callback : PageModel
 
         // delete temporary cookie used during external authentication
         await HttpContext.SignOutAsync("entraidcookie");
+        await HttpContext.SignOutAsync("adminentraidcookie");
 
         // retrieve return URL
         var returnUrl = result.Properties.Items["returnUrl"] ?? "~/";
@@ -125,20 +145,32 @@ public class Callback : PageModel
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1851:Possible multiple enumerations of 'IEnumerable' collection", Justification = "<Pending>")]
     private async Task<ApplicationUser> AutoProvisionUserAsync(string provider, string providerUserId, IEnumerable<Claim> claims, string photo)
     {
-        var sub = Guid.NewGuid().ToString();
+        var sub = ProfileService.GetOid(claims);
+        if (sub == null)
+        {
+            sub = Guid.NewGuid();
+        }
 
         var user = new ApplicationUser
         {
-            Id = sub,
-            UserName = sub, // don't need a username, since the user will be using an external provider to login
+            Id = sub.ToString()!,
+            UserName = sub.ToString(),
+            EntraIdOid = sub
         };
 
         // email
-        var email = claims.FirstOrDefault(x => x.Type == JwtClaimTypes.Email)?.Value ??
-                    claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+        var email = ProfileService.GetEmail(claims);
         if (email != null)
         {
             user.Email = email;
+            user.UserName = email;
+        }
+
+        // tid
+        var tid = ProfileService.GetUserTenantId(claims);
+        if (tid != null)
+        {
+            user.TenantId = tid;
         }
 
         // create a list of claims that we want to transfer into our store
@@ -209,7 +241,7 @@ public class Callback : PageModel
         var idToken = externalResult.Properties?.GetTokenValue("id_token");
         if (idToken != null)
         {
-            localSignInProps.StoreTokens(new[] { new AuthenticationToken { Name = "id_token", Value = idToken } });
+            localSignInProps.StoreTokens([new AuthenticationToken { Name = "id_token", Value = idToken }]);
         }
     }
 }

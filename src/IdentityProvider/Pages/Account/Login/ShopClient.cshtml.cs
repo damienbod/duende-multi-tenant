@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace IdentityProvider.Pages.Login;
 
 [AllowAnonymous]
-public class Index : PageModel
+public class ShopClient : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
@@ -30,7 +30,7 @@ public class Index : PageModel
     [BindProperty]
     public InputModel Input { get; set; } = default!;
 
-    public Index(
+    public ShopClient(
         IIdentityServerInteractionService interaction,
         IAuthenticationSchemeProvider schemeProvider,
         IIdentityProviderStore identityProviderStore,
@@ -56,11 +56,6 @@ public class Index : PageModel
             return RedirectToPage("/ExternalLogin/Challenge", new { scheme = View.ExternalLoginScheme, returnUrl });
         }
 
-        if (View.UseShopClientDisplay)
-        {
-            return RedirectToPage("ShopClient", new { returnUrl });
-        }
-           
         return Page();
     }
 
@@ -170,17 +165,6 @@ public class Index : PageModel
         };
 
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-        if (context?.Client.ClientId == "shop-client-ui")
-        {
-            View = new ViewModel
-            {
-                UseShopClientDisplay = true
-            };
-            
-            // Process in the shop client login
-            return;
-        }
-
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
             var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
@@ -236,7 +220,8 @@ public class Index : PageModel
         {
             AllowRememberLogin = LoginOptions.AllowRememberLogin,
             EnableLocalLogin = allowLocal && LoginOptions.AllowLocalLogin,
-            ExternalProviders = providers.ToArray()
+            ExternalProviders = providers.ToArray(),
+            UseShopClientDisplay = true
         };
     }
 }

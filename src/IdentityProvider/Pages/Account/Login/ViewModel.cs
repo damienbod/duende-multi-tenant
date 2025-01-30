@@ -5,6 +5,7 @@ namespace IdentityProvider.Pages.Login;
 
 public class ViewModel
 {
+    public bool UseShopClientDisplay { get; set; } = false;
     public bool AllowRememberLogin { get; set; } = true;
     public bool EnableLocalLogin { get; set; } = true;
 
