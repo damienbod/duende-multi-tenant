@@ -1,4 +1,4 @@
-# Duende IdentityServer multi-tenant setup
+# Duende IdentityServer multi-tenant, multi-client setups
 
 ![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
@@ -11,6 +11,10 @@ Add-Migration "init_identity_new"
 ```
 Update-Database
 ```
+
+## History 
+
+- 2025-01-30 Initial version
 
 ## Links
 
