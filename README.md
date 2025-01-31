@@ -1,5 +1,7 @@
 # Duende IdentityServer multi-tenant, multi-client setups
 
+[![.NET](https://github.com/damienbod/duende-multi-tenant/actions/workflows/dotnet.yml/badge.svg)](https://github.com/damienbod/duende-multi-tenant/actions/workflows/dotnet.yml)
+
 [Multiple client sign-in customizations using Duende identity provider](https://damienbod.com)
 
 ![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
