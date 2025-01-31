@@ -1,12 +1,12 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-using IdentityProvider.Models;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
+using IdentityProvider.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -60,7 +60,7 @@ public class Index : PageModel
         {
             return RedirectToPage("ShopClient", new { returnUrl });
         }
-           
+
         return Page();
     }
 
@@ -176,7 +176,7 @@ public class Index : PageModel
             {
                 UseShopClientDisplay = true
             };
-            
+
             // Process in the shop client login
             return;
         }

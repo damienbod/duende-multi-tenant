@@ -1,5 +1,5 @@
-﻿using IdentityProvider.Models;
-using Duende.IdentityServer.Extensions;
+﻿using Duende.IdentityServer.Extensions;
+using IdentityProvider.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

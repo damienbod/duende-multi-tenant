@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace AdminClientUI;
+﻿namespace AdminClientUI;
 
 public class PhotoService
 {

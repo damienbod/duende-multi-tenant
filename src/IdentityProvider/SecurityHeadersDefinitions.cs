@@ -4,7 +4,7 @@ public static class SecurityHeadersDefinitions
 {
     private static HeaderPolicyCollection? policy;
 
-    public static HeaderPolicyCollection GetHeaderPolicyCollection(bool isDev, string? idpHost, 
+    public static HeaderPolicyCollection GetHeaderPolicyCollection(bool isDev, string? idpHost,
             string shopClientUI, string adminClientUI)
     {
         ArgumentNullException.ThrowIfNull(idpHost);

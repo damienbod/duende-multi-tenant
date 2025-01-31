@@ -2,6 +2,8 @@
 
 ![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
+[Multiple client sign-in customizations using Duende identity provider](https://damienbod.com)
+
 ## Database
 
 ```
