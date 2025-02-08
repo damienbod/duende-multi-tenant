@@ -76,14 +76,17 @@
                         <ul class="list-inline">
                             @foreach (var provider in Model.View.VisibleExternalProviders)
                             {
-                                <li class="list-inline-item">
-                                    <a class="btn btn-secondary"
-                                       asp-page="/ExternalLogin/Challenge"
-                                       asp-route-scheme="@provider.AuthenticationScheme"
-                                       asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                        @provider.DisplayName
-                                    </a>
-                                </li>
+                                if (!(!Model.ShowAdminSignIn && (provider.AuthenticationScheme == "AdminEntraID")))
+                                {
+                                    <li class="list-inline-item">
+                                        <a class="btn btn-secondary"
+                                           asp-page="/ExternalLogin/Challenge"
+                                           asp-route-scheme="@provider.AuthenticationScheme"
+                                           asp-route-returnUrl="@Model.Input.ReturnUrl">
+                                            @provider.DisplayName
+                                        </a>
+                                    </li>
+                                }
                             }
                         </ul>
                     </div>
