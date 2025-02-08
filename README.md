@@ -2,7 +2,7 @@
 
 [![.NET](https://github.com/damienbod/duende-multi-tenant/actions/workflows/dotnet.yml/badge.svg)](https://github.com/damienbod/duende-multi-tenant/actions/workflows/dotnet.yml)
 
-[Multiple client sign-in customizations using Duende identity provider](https://damienbod.com)
+[Multiple client sign-in customizations using Duende identity provider](https://damienbod.com/2025/02/03/multiple-client-sign-in-customizations-using-duende-identity-provider/)
 
 ![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
