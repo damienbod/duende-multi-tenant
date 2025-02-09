@@ -4,11 +4,11 @@
 
 [Multiple client sign-in customizations using Duende identity provider](https://damienbod.com/2025/02/03/multiple-client-sign-in-customizations-using-duende-identity-provider/)
 
-![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
+![Client customization](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
 [Customizing a single client sign-in using parameters in Duende IdentityServer](https://damienbod.com)
 
-![ASP.NET Core Architecture](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context-parameters.png)
+![Client parameters customization](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context-parameters.png)
 
 ## Database
 
