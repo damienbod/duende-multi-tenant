@@ -35,7 +35,7 @@ public class ProfileService
 
         if (tid != null)
         {
-            return null;
+            return Guid.TryParse(tid?.Value, out var tId) ? tId : null;
         }
 
         tid = claims.FirstOrDefault(t => t.Type == "tid");
