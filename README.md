@@ -22,6 +22,7 @@ Update-Database
 
 ## History 
 
+- 2025-02-15 Updated packages
 - 2025-02-09 Added client parameter customization
 - 2025-01-31 Initial version
 
