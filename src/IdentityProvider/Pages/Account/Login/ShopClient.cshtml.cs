@@ -30,6 +30,9 @@ public class ShopClient : PageModel
     [BindProperty]
     public InputModel Input { get; set; } = default!;
 
+    [BindProperty]
+    public bool ShowAdminSignIn { get; set; } = true;
+
     public ShopClient(
         IIdentityServerInteractionService interaction,
         IAuthenticationSchemeProvider schemeProvider,
@@ -165,9 +168,11 @@ public class ShopClient : PageModel
         };
 
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+        ShowAdminSignIn = !(context?.Parameters["showadminsignin"] == "false");
+
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
-            var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
+            var local = context.IdP == IdentityServerConstants.LocalIdentityProvider;
 
             // this is meant to short circuit the UI and only trigger the one external IdP
             View = new ViewModel
@@ -179,7 +184,7 @@ public class ShopClient : PageModel
 
             if (!local)
             {
-                View.ExternalProviders = new[] { new ViewModel.ExternalProvider(authenticationScheme: context.IdP) };
+                View.ExternalProviders = [new ViewModel.ExternalProvider(authenticationScheme: context.IdP)];
             }
 
             return;

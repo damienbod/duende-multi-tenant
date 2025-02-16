@@ -33,6 +33,8 @@ public static class Config
             AllowOfflineAccess = true,
             AllowedScopes = { "openid", "profile", "shopclientscope" },
 
+            RequirePushedAuthorization = true,
+
             EnableLocalLogin = false,
             //IdentityProviderRestrictions = ["EntraID"]
         },
