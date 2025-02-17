@@ -6,7 +6,7 @@
 
 ![Client customization](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context.png)
 
-[Customizing a single client sign-in using parameters in Duende IdentityServer](https://damienbod.com)
+[Customizing a single client sign-in using parameters in Duende IdentityServer](https://damienbod.com/2025/02/17/customizing-a-single-client-sign-in-using-parameters-in-duende-identityserver/)
 
 ![Client parameters customization](https://github.com/damienbod/duende-multi-tenant/blob/main/images/context-parameters.png)
 
@@ -22,6 +22,7 @@ Update-Database
 
 ## History 
 
+- 2025-02-16 Updated packages
 - 2025-02-15 Updated packages
 - 2025-02-09 Added client parameter customization
 - 2025-01-31 Initial version
