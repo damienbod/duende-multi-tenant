@@ -26,6 +26,7 @@ Update-Database
 
 ## History 
 
+- 2025-05-02 Updated packages
 - 2025-02-17 Updated packages, readme
 - 2025-02-15 Updated packages
 - 2025-02-09 Added client parameter customization
