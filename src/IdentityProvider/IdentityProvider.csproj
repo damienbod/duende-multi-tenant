@@ -34,5 +34,7 @@
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders.TagHelpers" Version="1.2.0" />
     
 		<PackageReference Include="Magick.NET-Q16-AnyCPU" Version="14.8.2" />
+    
+		<PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
 	</ItemGroup>
 </Project>
