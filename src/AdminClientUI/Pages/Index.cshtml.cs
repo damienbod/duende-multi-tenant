@@ -10,9 +10,9 @@ namespace AdminClientUI.Pages;
 public class IndexModel : PageModel
 {
     private readonly PhotoService _photoService;
-    private readonly IUserTokenManagementService _tokenManagementService;
+    private readonly IUserTokenManager _tokenManagementService;
 
-    public IndexModel(PhotoService photoService, IUserTokenManagementService tokenManagementService)
+    public IndexModel(PhotoService photoService, IUserTokenManager tokenManagementService)
     {
         _photoService = photoService;
         _tokenManagementService = tokenManagementService;
