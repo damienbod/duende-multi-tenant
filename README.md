@@ -26,6 +26,7 @@ Update-Database
 
 ## History 
 
+- 2025-10-24 Updated packages
 - 2025-09-27 Updated packages
 - 2025-08-09 Updated packages
 - 2025-05-02 Updated packages
