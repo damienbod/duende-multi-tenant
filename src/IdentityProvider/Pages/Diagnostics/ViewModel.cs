@@ -3,6 +3,7 @@
 
 using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
+using System.Buffers.Text;
 using System.Text;
 using System.Text.Json;
 
@@ -18,7 +19,7 @@ public class ViewModel
         {
             if (encoded != null)
             {
-                var bytes = Base64Url.Decode(encoded);
+                var bytes = Base64Url.DecodeFromChars(encoded);
                 var value = Encoding.UTF8.GetString(bytes);
                 Clients = JsonSerializer.Deserialize<string[]>(value) ?? Enumerable.Empty<string>();
                 return;
