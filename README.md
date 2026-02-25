@@ -17,7 +17,7 @@ The solution is setup using three different ASP.NET Core applications. In the ex
 ## Database
 
 ```
-Add-Migration "init_identity_new" 
+Add-Migration "InitIdentityNew" 
 ```
 
 ```
@@ -26,6 +26,7 @@ Update-Database
 
 ## History 
 
+- 2026-02-25 Updated packages
 - 2026-02-07 Updated packages
 - 2025-11-30 .NET 10
 - 2025-10-24 Updated packages
