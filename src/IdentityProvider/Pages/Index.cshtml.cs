@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Extensions;
+using Duende.IdentityServer.Licensing;
 using IdentityProvider.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,25 +18,17 @@ namespace IdentityProvider.Pages.Home;
 public class Index : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly LicenseInformation _license;
 
-    public Index(UserManager<ApplicationUser> userManager, IdentityServerLicense? license = null)
+    public Index(UserManager<ApplicationUser> userManager, LicenseInformation license)
     {
-        License = license;
+        _license = license;
         _userManager = userManager;
     }
 
-    public string Version
-    {
-        get => typeof(Duende.IdentityServer.Hosting.IdentityServerMiddleware).Assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion.Split('+').First()
-            ?? "unavailable";
-    }
 
     [BindProperty]
     public byte[] Photo { get; set; } = [];
-
-    public IdentityServerLicense? License { get; }
 
     public async Task OnGetAsync()
     {
