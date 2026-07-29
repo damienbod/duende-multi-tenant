@@ -29,7 +29,7 @@ public static class SecurityHeadersDefinitions
                 builder.AddImgSrc().Self().From("data:");
                 builder.AddFormAction()
                     .Self()
-                    .From(idpHost)
+                    //.From(idpHost)
                     .From(shopClientUI)
                     .From(adminClientUI);
                 builder.AddFontSrc().Self();

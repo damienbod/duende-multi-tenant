@@ -27,11 +27,13 @@ public static class SecurityHeadersDefinitionsWeakened
                 builder.AddObjectSrc().None();
                 builder.AddBlockAllMixedContent();
                 builder.AddImgSrc().Self().From("data:");
+
                 builder.AddFormAction()
                     .Self()
                     .From(idpHost)
                     .From(shopClientUI)
                     .From(adminClientUI);
+
                 builder.AddFontSrc().Self();
                 builder.AddBaseUri().Self();
                 builder.AddFrameAncestors().None();
